@@ -2,24 +2,27 @@ package com.synchrode.purchase.entities;
 
 import java.io.Serializable;
 import java.util.Objects;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity /* tenho que colocar algumas anotações nessa classe pra instruir o JPA pra ele saber como ele vai converter os objetos para o modelo relacional */
+@Table(name = "tb_user") // renomeamos pois User é uma palavra reservada do banco H2
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	/*
-	 Aplicamos o serializable para o objeto possa ser transformado em cadeias de bytes, para:
-	 * objeto trafegar na rede;
-	 * objeto possa ser gravado em arquivos etc.
-	*/
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // essa definição de estratégia pra auto incremento funciona pra quase todos os bancos, dependendo do bando você deverá mudar
 	private Long id;
 	private String name;
 	private String email;
 	private String phone;
 	private String password;
 	
-	public User() { /* como estamos usando framework, é obrigatório colocar o construtor vazio, e por conveniência, colocaremos outro que recebe todos os atributos */
+	public User() { 
 	}
 
 	public User(Long id, String name, String email, String phone, String password) {
