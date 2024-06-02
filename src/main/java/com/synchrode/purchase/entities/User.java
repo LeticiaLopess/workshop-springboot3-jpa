@@ -8,14 +8,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@Entity /* tenho que colocar algumas anotações nessa classe pra instruir o JPA pra ele saber como ele vai converter os objetos para o modelo relacional */
-@Table(name = "tb_user") // renomeamos pois User é uma palavra reservada do banco H2
+@Entity 
+@Table(name = "tb_user")
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // essa definição de estratégia pra auto incremento funciona pra quase todos os bancos, dependendo do bando você deverá mudar
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private String email;
