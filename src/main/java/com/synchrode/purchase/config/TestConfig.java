@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.synchrode.purchase.entities.Category;
 import com.synchrode.purchase.entities.Order;
+import com.synchrode.purchase.entities.Product;
 import com.synchrode.purchase.entities.User;
 import com.synchrode.purchase.entities.enums.OrderStatus;
 import com.synchrode.purchase.repositories.CategoryRepository;
 import com.synchrode.purchase.repositories.OrderRepository;
+import com.synchrode.purchase.repositories.ProductRepository;
 import com.synchrode.purchase.repositories.UserRepository;
 
 @Configuration
@@ -26,17 +28,27 @@ public class TestConfig implements CommandLineRunner {
 	@Autowired
 	private OrderRepository orderRepository;
 
-	@Autowired // injeção de dependência - é tipo um this.categoryRepository = categoryRepository, mas com essa anotação o Spring faz automaticamente e, para que essa injeção de dependência funcione automaticamente, você precisa ter suas classes e componentes configurados para serem gerenciados pelo contêiner do Spring. Isso geralmente é feito através de anotações como @Component, @Service, @Repository, etc. 
+	@Autowired
 	private CategoryRepository categoryRepository;
+	
+	@Autowired
+	private ProductRepository productRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
 		
-		Category cat1 = new Category(null, "Electronics"); // posso colocar aqui no início pois é uma classe independente de Order e Pedido
+		Category cat1 = new Category(null, "Electronics");
 		Category cat2 = new Category(null, "Books");
 		Category cat3 = new Category(null, "Computers");
 		
+		Product p1 = new Product(null, "The Lord of the Rings", "Lorem ipsum dolor sit amet, consectetur.", 90.5, "");
+		Product p2 = new Product(null, "Smart TV", "Nulla eu imperdiet purus. Maecenas ante.", 2190.0, "");
+		Product p3 = new Product(null, "Macbook Pro", "Nam eleifend maximus tortor, at mollis.", 1250.0, "");
+		Product p4 = new Product(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "");
+		Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
+		
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
 		
 		User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456"); 
 		User u2 = new User(null, "Alex Green", "alex@gmail.com", "977777777", "123456"); 
