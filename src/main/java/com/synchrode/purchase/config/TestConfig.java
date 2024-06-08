@@ -8,9 +8,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.synchrode.purchase.entities.Category;
 import com.synchrode.purchase.entities.Order;
 import com.synchrode.purchase.entities.User;
 import com.synchrode.purchase.entities.enums.OrderStatus;
+import com.synchrode.purchase.repositories.CategoryRepository;
 import com.synchrode.purchase.repositories.OrderRepository;
 import com.synchrode.purchase.repositories.UserRepository;
 
@@ -24,8 +26,18 @@ public class TestConfig implements CommandLineRunner {
 	@Autowired
 	private OrderRepository orderRepository;
 
+	@Autowired // injeção de dependência - é tipo um this.categoryRepository = categoryRepository, mas com essa anotação o Spring faz automaticamente e, para que essa injeção de dependência funcione automaticamente, você precisa ter suas classes e componentes configurados para serem gerenciados pelo contêiner do Spring. Isso geralmente é feito através de anotações como @Component, @Service, @Repository, etc. 
+	private CategoryRepository categoryRepository;
+	
 	@Override
 	public void run(String... args) throws Exception {
+		
+		Category cat1 = new Category(null, "Electronics"); // posso colocar aqui no início pois é uma classe independente de Order e Pedido
+		Category cat2 = new Category(null, "Books");
+		Category cat3 = new Category(null, "Computers");
+		
+		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+		
 		User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456"); 
 		User u2 = new User(null, "Alex Green", "alex@gmail.com", "977777777", "123456"); 
 		
