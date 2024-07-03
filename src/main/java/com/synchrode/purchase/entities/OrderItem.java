@@ -3,6 +3,7 @@ package com.synchrode.purchase.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.synchrode.purchase.entities.pk.OrderItemPK;
 
 import jakarta.persistence.EmbeddedId;
@@ -16,7 +17,7 @@ public class OrderItem implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@EmbeddedId
-	private OrderItemPK id;
+	private OrderItemPK id = new OrderItemPK(); // sempre que criarmos uma classe auxiliar com id composto, devemos instanciá-la
 	
 	private Integer quantity;
 	private Double price;
@@ -33,7 +34,8 @@ public class OrderItem implements Serializable {
 	} 
 	// não criamos com o id mas colocaremos ele manualmente
 
-	public Order getOrder() { // fazemos isso pois essa classe de associação não retornará um ID sendo uma classe composta, ela deve retornar cada um separadamente
+	@JsonIgnore // colocamos aqui pois na plataforma enterprise o que vale é o método GET
+	public Order getOrder() { // retorna o pedido associado a esse item de pedido
 		return id.getOrder();
 	}
 	
