@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +25,7 @@ public class Payment implements Serializable {
 	private Long id;
 	private Instant moment;
 	
+	@JsonIgnore
 	@OneToOne
 	@MapsId
 	private Order order;
@@ -37,27 +40,27 @@ public class Payment implements Serializable {
 		this.order = order;
 	}
 
-	private Long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	private void setId(Long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	private Instant getMoment() {
+	public Instant getMoment() {
 		return moment;
 	}
 
-	private void setMoment(Instant moment) {
+	public void setMoment(Instant moment) {
 		this.moment = moment;
 	}
 
-	private Order getOrder() {
+	public Order getOrder() {
 		return order;
 	}
 
-	private void setOrder(Order order) {
+	public void setOrder(Order order) {
 		this.order = order;
 	}
 
