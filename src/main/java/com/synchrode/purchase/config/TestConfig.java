@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.synchrode.purchase.entities.Category;
 import com.synchrode.purchase.entities.Order;
 import com.synchrode.purchase.entities.OrderItem;
+import com.synchrode.purchase.entities.Payment;
 import com.synchrode.purchase.entities.Product;
 import com.synchrode.purchase.entities.User;
 import com.synchrode.purchase.entities.enums.OrderStatus;
@@ -81,6 +82,10 @@ public class TestConfig implements CommandLineRunner {
 	
 		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 	
+		Payment pay1 = new Payment(null, Instant.parse("2019-06-20T21:53:07Z"), o1);
+		o1.setPayment(pay1); // aqui eu faço a associação na classe independente de um objeto dependente
+	
+		orderRepository.save(o1);
 	}
 	
 }
