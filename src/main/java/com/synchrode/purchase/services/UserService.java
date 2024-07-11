@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.synchrode.purchase.entities.User;
 import com.synchrode.purchase.repositories.UserRepository;
+import com.synchrode.purchase.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class UserService {
@@ -18,11 +19,11 @@ public class UserService {
 	
 	public User findById(Long id) {
 		Optional<User> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id)); 
 	}
 	
 	public User insert(User obj) {
-		return repository.save(obj); // o save já retorna o objeto salvo então já inserimos return
+		return repository.save(obj); 
 	}
 	
 	public void delete(Long id) {
@@ -30,7 +31,7 @@ public class UserService {
 	}
 	
 	public User update(Long id, User obj) {
-		User entity = repository.getReferenceById(id); // instancia um objeto de User para trabalharmos com ele, não vai no banco ainda
+		User entity = repository.getReferenceById(id);
 		updateData(entity, obj);
 		return repository.save(entity);
 	}
