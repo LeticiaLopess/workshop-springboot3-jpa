@@ -46,7 +46,7 @@ public class UserResource {
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) { // pra esse id ser reconhecido como uma variável da URL, usamos o @PathVariable
 		service.delete(id);
-		return ResponseEntity.noContent().build(); // como é uma resposta sem corpo, usamos o noContent, o código de resposta de um conteúdo sem corpo é 204 e aqui ele já tratará isso
+		return ResponseEntity.noContent().build();
 	}
 	
 	@PutMapping(value = "/{id}")

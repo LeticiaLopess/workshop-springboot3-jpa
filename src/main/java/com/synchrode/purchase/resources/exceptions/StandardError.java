@@ -61,11 +61,11 @@ public class StandardError implements Serializable {
 		this.message = message;
 	}
 
-	private String getPath() {
+	public String getPath() {
 		return path;
 	}
 
-	private void setPath(String path) {
+	public void setPath(String path) {
 		this.path = path;
 	}
 	
